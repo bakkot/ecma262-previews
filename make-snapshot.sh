@@ -9,4 +9,4 @@ cd ../ecma262
 npm run build-only
 node scripts/insert_snapshot_warning.js
 echo ${CWD}
-cp -r out ${CWD}/builds/`git rev-parse --short HEAD`
+cp -r out ${CWD}/docs/`git rev-parse --short HEAD`
