@@ -9,9 +9,11 @@ for (let [section, ids] of Object.entries(multipageMap)) {
 }
 if (location.hash) {
   let targetSec = idToSection[location.hash.substring(1)];
-  let match = location.pathname.match(/([^/]+)\.html?$/);
-  if (match != null && targetSec != null && match[1] !== targetSec) {
-    location = targetSec + '.html' + location.hash;
+  if (targetSec != null) {
+    let match = location.pathname.match(/([^/]+)\.html?$/);
+    if ((match != null && match[1] !== targetSec) || location.pathname.endsWith('/multipage/')) {
+      location = targetSec + '.html' + location.hash;
+    }
   }
 }
 
