@@ -17,3 +17,31 @@ if (location.hash) {
   }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.sessionStorage && sessionStorage.referencePaneState != null) {
+    let state = JSON.parse(sessionStorage.referencePaneState);
+    if (state == null) {
+      return;
+    }
+    if (state.type === 'ref') {
+      let entry = menu.search.biblio.byId[state.id];
+      if (entry != null) {
+        referencePane.showReferencesFor(entry);
+      }
+    } else if (state.type === 'sdo') {
+      let sdos = sdoMap[state.id];
+      if (sdos != null) {
+        referencePane.$headerText.innerHTML = state.html;
+        referencePane.showSDOsBody(sdos, state.id);
+      }
+    }
+    window.sessionStorage.referencePaneState = null;
+  }
+});
+
+window.addEventListener('unload', () => {
+  if (window.sessionStorage) {
+    sessionStorage.referencePaneState = JSON.stringify(referencePane.state || null);
+  }
+});
+

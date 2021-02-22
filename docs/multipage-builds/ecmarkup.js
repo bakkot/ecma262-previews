@@ -901,10 +901,12 @@ let referencePane = {
 
   deactivate() {
     this.$container.classList.remove('active');
+    this.state = null;
   },
 
   showReferencesFor(entry) {
     this.activate();
+    this.state = { type: 'ref', id: entry.id };
     this.$headerText.textContent = 'References to ';
     let newBody = document.createElement('tbody');
     let previousId;
@@ -944,7 +946,6 @@ let referencePane = {
   },
 
   showSDOs(sdos, alternativeId) {
-    this.activate();
     let rhs = document.getElementById(alternativeId);
     let parentName = rhs.parentNode.getAttribute('name');
     let colons = rhs.parentNode.querySelector('emu-geq');
@@ -962,6 +963,12 @@ let referencePane = {
     // prettier-ignore
     this.$headerText.innerHTML = `Syntax-Directed Operations for<br><a href="${makeLinkToId(alternativeId)}" class="menu-pane-header-production"><emu-nt>${parentName}</emu-nt> ${colons.outerHTML} </a>`;
     this.$headerText.querySelector('a').append(rhs);
+    this.showSDOsBody(sdos, alternativeId);
+  },
+
+  showSDOsBody(sdos, alternativeId) {
+    this.activate();
+    this.state = { type: 'sdo', id: alternativeId, html: this.$headerText.innerHTML };
     this.$headerRefId.style.display = 'none';
     let newBody = document.createElement('tbody');
     Object.keys(sdos).forEach(sdoName => {
