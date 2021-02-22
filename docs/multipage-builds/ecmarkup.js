@@ -920,7 +920,7 @@ let referencePane = {
         let cid = menu.search.biblio.refParentClause[id];
         let clause = menu.search.biblio.byId[cid];
         if (clause == null) {
-          throw new Error('could not fiind clause for id ' + cid);
+          throw new Error('could not find clause for id ' + cid);
         }
         return { id, clause };
       })
