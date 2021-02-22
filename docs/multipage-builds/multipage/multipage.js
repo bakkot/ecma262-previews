@@ -7,4 +7,11 @@ for (let [section, ids] of Object.entries(multipageMap)) {
     idToSection[id] = section;
   }
 }
+if (location.hash) {
+  let targetSec = idToSection[location.hash.substring(1)];
+  let match = location.pathname.match(/([^/]+)\.html?$/);
+  if (match != null && targetSec != null && match[1] !== targetSec) {
+    location = targetSec + '.html' + location.hash;
+  }
+}
 
