@@ -4,7 +4,9 @@ let multipageMap = JSON.parse(`{"intro":["metadata-block","sec-intro","ecma-logo
 let idToSection = Object.create(null);
 for (let [section, ids] of Object.entries(multipageMap)) {
   for (let id of ids) {
-    idToSection[id] = section;
+    if (!idToSection[id]) {
+      idToSection[id] = section;
+    }
   }
 }
 if (location.hash) {
