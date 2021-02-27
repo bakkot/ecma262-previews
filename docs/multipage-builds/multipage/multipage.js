@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-window.addEventListener('unload', () => {
+window.addEventListener('beforeunload', () => {
   if (window.sessionStorage) {
     sessionStorage.referencePaneState = JSON.stringify(referencePane.state || null);
     sessionStorage.activeTocPaths = JSON.stringify(getActiveTocPaths());
